@@ -2,6 +2,22 @@
 const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
+const mongoose = require('mongoose')
+
+// Setting database connection
+mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connection
+
+db.on('error', (err) => {
+  console.log('mongodb error!')
+})
+
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
+
+// Import models
+const Restaurant = require('./models/restaurant')
 
 // Include data
 const restList = require('./restaurant.json')
