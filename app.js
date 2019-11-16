@@ -20,7 +20,7 @@ db.once('open', () => {
 const Restaurant = require('./models/restaurant')
 
 // Include data
-const restList = require('./restaurant.json')
+const restList = require('./models/seeds/restaurant.json')
 
 // Setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
