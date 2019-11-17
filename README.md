@@ -4,7 +4,10 @@ This is a web app to show restaurant list which is based on express,js.
 ## Features
 + Show all restaurant list at index page with basic data.
 + Show detail data of the restaurant you choose.
-+ You can search restaurant by name or category at index page.
++ User can search restaurant by name or category at index page.
++ User can add new restaurant.
++ User can edit data of exist restaurant.
++ User can delete restaurant from restaurants list.
 
 ## Installing
 ### Environment
