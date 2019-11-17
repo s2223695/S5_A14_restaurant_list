@@ -37,9 +37,33 @@ app.get('/', (req, res) => {
   res.render('index', { restaurants: restList.results })
 })
 
-app.get('/restaurants/:rest_id', (req, res) => {
-  const restaurant = restList.results.find(item => item.id.toString() === req.params.rest_id)
+app.get('/restaurants', (req, res) => {
+  res.redirect('/')
+})
+
+app.get('/restaurants/new', (req, res) => {
+  res.send('page for add new restaurant')
+})
+
+app.post('/restaurants/new', (req, res) => {
+  res.send('add new restaurant')
+})
+
+app.get('/restaurants/:id', (req, res) => {
+  const restaurant = restList.results.find(item => item.id.toString() === req.params.id)
   res.render('show', { restaurant: restaurant })
+})
+
+app.get('/restaurants/:id/edit', (req, res) => {
+  res.send('page for edit a restaurant')
+})
+
+app.post('/restaurants/:id/edit', (req, res) => {
+  res.send('edit a restaurant')
+})
+
+app.post('/restaurants/:id/delete', (req, res) => {
+  res.send('delete a restaurant')
 })
 
 app.get('/search', (req, res) => {
@@ -48,6 +72,8 @@ app.get('/search', (req, res) => {
 
   res.render('index', { restaurants: restaurants, keyword: keyword })
 })
+
+
 
 // Start and listen on the Express server
 app.listen(port, () => {
