@@ -38,73 +38,8 @@ const port = 3000
 app.use(express.static('public'))
 
 // Setting routes
-app.get('/', (req, res) => {
-  Restaurant.find((err, restaurants) => {
-    if (err) return console.log(err)
-    res.render('index', { restaurants })
-  })
-})
-
-app.get('/restaurants', (req, res) => {
-  res.redirect('/')
-})
-
-app.get('/restaurants/new', (req, res) => {
-  res.render('new')
-})
-
-app.post('/restaurants/new', (req, res) => {
-  const restaurant = new Restaurant(req.body)
-  restaurant.save(err => {
-    if (err) return console.log(err)
-    res.redirect('/')
-  })
-})
-
-app.get('/restaurants/:id', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.log(err)
-    res.render('show', { restaurant })
-  })
-})
-
-app.get('/restaurants/:id/edit', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.log(err)
-    res.render('edit', { restaurant })
-  })
-})
-
-app.put('/restaurants/:id/edit', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.log(err)
-    Object.assign(restaurant, req.body)
-    restaurant.save(err => {
-      if (err) return console.log(err)
-      res.redirect(`/restaurants/${restaurant.id}`)
-    })
-  })
-})
-
-app.delete('/restaurants/:id/delete', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.log(err)
-    restaurant.remove(err => {
-      if (err) return console.log(err)
-      res.redirect('/')
-    })
-  })
-})
-
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  Restaurant.find((err, restaurants) => {
-    if (err) console.log(err)
-    const filteredRestaurants = restaurants.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()) || item.category.toLowerCase().includes(keyword.toLowerCase()))
-
-    res.render('index', { restaurants: filteredRestaurants, keyword })
-  })
-})
+app.use('/', require('./routes/home'))
+app.use('/restaurants', require('./routes/restaurant'))
 
 // Start and listen on the Express server
 app.listen(port, () => {
