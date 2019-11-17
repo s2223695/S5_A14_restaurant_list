@@ -61,8 +61,10 @@ app.post('/restaurants/new', (req, res) => {
 })
 
 app.get('/restaurants/:id', (req, res) => {
-  const restaurant = restList.results.find(item => item.id.toString() === req.params.id)
-  res.render('show', { restaurant: restaurant })
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.log(err)
+    res.render('show', { restaurant })
+  })
 })
 
 app.get('/restaurants/:id/edit', (req, res) => {
