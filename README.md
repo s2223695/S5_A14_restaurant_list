@@ -24,7 +24,7 @@ This is a web app to show restaurant list which is based on express,js.
 Choose a [dir] as a workspace.
 First, clone this project to the [dir].
 ```
-git clone https://github.com/s2223695/S4_A10_restaurant_list.git [dir]
+git clone https://github.com/s2223695/S4_A11_restaurant_list.git [dir]
 ```
 Switch to the project folder.
 ```
