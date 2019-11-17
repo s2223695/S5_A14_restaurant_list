@@ -76,6 +76,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 
 app.post('/restaurants/:id/edit', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.log(err)
     Object.assign(restaurant, req.body)
     restaurant.save(err => {
       if (err) return console.log(err)
@@ -85,7 +86,13 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 app.post('/restaurants/:id/delete', (req, res) => {
-  res.send('delete a restaurant')
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.log(err)
+    restaurant.remove(err => {
+      if (err) return console.log(err)
+      res.redirect('/')
+    })
+  })
 })
 
 app.get('/search', (req, res) => {
