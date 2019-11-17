@@ -68,11 +68,20 @@ app.get('/restaurants/:id', (req, res) => {
 })
 
 app.get('/restaurants/:id/edit', (req, res) => {
-  res.send('page for edit a restaurant')
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.log(err)
+    res.render('edit', { restaurant })
+  })
 })
 
 app.post('/restaurants/:id/edit', (req, res) => {
-  res.send('edit a restaurant')
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    Object.assign(restaurant, req.body)
+    restaurant.save(err => {
+      if (err) return console.log(err)
+      res.redirect(`/restaurants/${restaurant.id}`)
+    })
+  })
 })
 
 app.post('/restaurants/:id/delete', (req, res) => {
