@@ -15,6 +15,7 @@ This is a web app to show restaurant list which is based on express,js.
 + express
 + express-handlebars
 + body-parser
++ method-override
 + mongoose
 + mongoDB
 

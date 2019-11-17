@@ -42,7 +42,7 @@
             <div class="card-footer">
               <div class="row justify-content-end">
                 <a href="/restaurants/{{this.id}}/edit" class="btn btn-primary mx-1">Edit</a>
-                <form action="/restaurants/{{this.id}}/delete" method="post" style="display: inline;">
+                <form action="/restaurants/{{this.id}}/delete?_method=DELETE" method="post" style="display: inline;">
                   <button type="submit" class="btn btn-danger mx-1">Delete</button>
                 </form>
               </div>

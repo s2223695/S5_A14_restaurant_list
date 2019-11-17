@@ -4,6 +4,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 // Setting database connection
 mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -26,6 +27,9 @@ app.set('view engine', 'handlebars')
 
 // Setting body parser
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// Setting method override
+app.use(methodOverride('_method'))
 
 // Define server variables
 const port = 3000
@@ -71,7 +75,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
   })
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id/edit', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log(err)
     Object.assign(restaurant, req.body)
@@ -82,7 +86,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
   })
 })
 
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id/delete', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.remove(err => {
