@@ -11,13 +11,36 @@ router.get('/', (req, res) => {
 })
 
 router.get('/search', (req, res) => {
-  const keyword = req.query.keyword
+  let keyword = req.query.keyword
+
+  if (keyword === undefined) {
+    keyword = ''
+  }
+
   Restaurant.find((err, restaurants) => {
     if (err) console.log(err)
     const filteredRestaurants = restaurants.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()) || item.category.toLowerCase().includes(keyword.toLowerCase()))
 
     res.render('index', { restaurants: filteredRestaurants, keyword })
   })
+})
+
+router.get('/:sort', (req, res) => {
+  let keyword = req.query.keyword
+
+  if (keyword === undefined) {
+    keyword = ''
+  }
+
+  let sortType = {}
+  sortType[req.params.sort] = 'asc'
+
+  Restaurant.find({})
+    .sort(sortType)
+    .exec((err, restaurants) => {
+      if (err) return console.error(err)
+      return res.render('index', { restaurants })
+    })
 })
 
 module.exports = router
