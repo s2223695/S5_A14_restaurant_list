@@ -17,9 +17,32 @@ router.get('/register', (req, res) => {
   res.render('register')
 })
 
-router.post('/register', (req, res) => [
-  res.send('register')
-])
+router.post('/register', (req, res) => {
+  const { name, email, password, password2 } = req.body
+  User.findOne({ email: email }).then(user => {
+    if (user) {
+      console.log('User already exist')
+      res.render('/register', {
+        name,
+        email,
+        password,
+        password2
+      })
+    } else {
+      const newUser = new User({
+        name,
+        email,
+        password
+      })
+      newUser
+        .save()
+        .then(user => {
+          res.redirect('/')
+        })
+        .catch(err => { console.log(err) })
+    }
+  })
+})
 
 router.get('/logout', (res, req) => {
   res.send('logout')
