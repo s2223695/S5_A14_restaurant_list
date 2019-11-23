@@ -40,6 +40,7 @@ app.use(express.static('public'))
 // Setting routes
 app.use('/', require('./routes/home'))
 app.use('/restaurants', require('./routes/restaurant'))
+app.use('/users', require('./routes/user'))
 
 // Start and listen on the Express server
 app.listen(port, () => {
