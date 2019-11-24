@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const session = require('express-session')
 
 // Setting database connection
 mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -30,6 +31,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // Setting method override
 app.use(methodOverride('_method'))
+
+// Setting session
+app.use(session({
+  secret: 'blablablahaha',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // Define server variables
 const port = 3000
