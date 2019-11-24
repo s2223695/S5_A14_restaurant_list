@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
+const flash = require('connect-flash')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -50,9 +51,16 @@ app.use(passport.session())
 
 require('./config/passport')(passport)
 
+// Setting connect-flash
+app.use(flash())
+
+// Setting response locals variables
 app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.isAuthenticated = req.isAuthenticated()
+
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 
