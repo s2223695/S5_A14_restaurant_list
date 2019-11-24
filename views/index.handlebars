@@ -26,9 +26,9 @@
         排序
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/name">名稱</a>
-        <a class="dropdown-item" href="/category">類別</a>
-        <a class="dropdown-item" href="/location">地址</a>
+        <a class="dropdown-item" href="/search?{{#if keyword}}keyword={{keyword}}&{{/if}}sort=name">名稱</a>
+        <a class="dropdown-item" href="/search?{{#if keyword}}keyword={{keyword}}&{{/if}}sort=category">類別</a>
+        <a class="dropdown-item" href="/search?{{#if keyword}}keyword={{keyword}}&{{/if}}sort=location">地址</a>
       </div>
     </div>
 
