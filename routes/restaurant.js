@@ -2,6 +2,9 @@
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurant')
+const { authenticated } = require('../config/auth')
+
+router.use(authenticated)
 
 router.get('/', (req, res) => {
   res.redirect('/')

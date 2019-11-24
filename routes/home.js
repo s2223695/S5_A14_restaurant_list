@@ -2,15 +2,16 @@
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurant')
+const { authenticated } = require('../config/auth')
 
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   Restaurant.find((err, restaurants) => {
     if (err) return console.log(err)
     res.render('index', { restaurants })
   })
 })
 
-router.get('/search', (req, res) => {
+router.get('/search', authenticated, (req, res) => {
   let keyword = req.query.keyword
 
   if (keyword === undefined) {
@@ -25,7 +26,7 @@ router.get('/search', (req, res) => {
   })
 })
 
-router.get('/:sort', (req, res) => {
+router.get('/:sort', authenticated, (req, res) => {
   let keyword = req.query.keyword
 
   if (keyword === undefined) {
