@@ -5,7 +5,7 @@ const Restaurant = require('../models/restaurant')
 const { authenticated } = require('../config/auth')
 
 router.get('/', authenticated, (req, res) => {
-  Restaurant.find((err, restaurants) => {
+  Restaurant.find({ userId: req.user._id }, (err, restaurants) => {
     if (err) return console.log(err)
     res.render('index', { restaurants })
   })
@@ -18,7 +18,7 @@ router.get('/search', authenticated, (req, res) => {
     keyword = ''
   }
 
-  Restaurant.find((err, restaurants) => {
+  Restaurant.find({ userId: req.user._id }, (err, restaurants) => {
     if (err) console.log(err)
     const filteredRestaurants = restaurants.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()) || item.category.toLowerCase().includes(keyword.toLowerCase()))
 
@@ -36,7 +36,7 @@ router.get('/:sort', authenticated, (req, res) => {
   let sortType = {}
   sortType[req.params.sort] = 'asc'
 
-  Restaurant.find({})
+  Restaurant.find({ userId: req.user._id })
     .sort(sortType)
     .exec((err, restaurants) => {
       if (err) return console.error(err)

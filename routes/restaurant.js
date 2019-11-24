@@ -23,21 +23,21 @@ router.post('/new', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findById({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     res.render('show', { restaurant })
   })
 })
 
 router.get('/:id/edit', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findById({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     res.render('edit', { restaurant })
   })
 })
 
 router.put('/:id/edit', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findById({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     Object.assign(restaurant, req.body)
     restaurant.save(err => {
@@ -48,7 +48,7 @@ router.put('/:id/edit', (req, res) => {
 })
 
 router.delete('/:id/delete', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findById({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.remove(err => {
       if (err) return console.log(err)
